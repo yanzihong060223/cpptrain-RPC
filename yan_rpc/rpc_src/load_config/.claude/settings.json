@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /home/ubuntu/yan_rpc -name \"CMakeLists.txt\" -not -path \"*/build/*\" -not -path \"*/CMakeFiles/*\" 2>/dev/null)",
+      "Read(//home/ubuntu/yan_rpc/**)",
+      "Bash(find /home/ubuntu/yan_rpc -name \"vcpkg.json\" -o -name \"vcpkg-configuration.json\" -o -name \"CMakeLists.txt\" -o -name \"CMakePresets.json\" 2>/dev/null | grep -v CMakeFiles | grep -v /build/; echo \"---\"; ls /home/ubuntu/yan_rpc/rpc_src/load_config/ 2>/dev/null; echo \"---\"; rg -l \"nlohmann|json.hpp|vcpkg\" /home/ubuntu/yan_rpc --glob '!CMakeFiles/**' --glob '!build/**' 2>/dev/null | head)",
+      "Bash(rg -n \"static registry|registry &registry::instance|SPDLOG_INLINE registry &\" /home/ubuntu/spdlog/include/spdlog/details/registry-inl.h | head -5; echo \"=== shutdown ===\"; rg -n -A5 \"SPDLOG_INLINE void shutdown\" /home/ubuntu/spdlog/include/spdlog/spdlog-inl.h | head -10)",
+      "Read(//home/ubuntu/spdlog/include/spdlog/details/**)",
+      "Read(//home/ubuntu/spdlog/include/spdlog/**)",
+      "Bash(git -C /home/ubuntu/spdlog describe --tags)",
+      "Bash(git -C /home/ubuntu/spdlog log -n1 --oneline)",
+      "Bash(./app)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(rm -rf /tmp/yanbuild && echo \"cleaned\"; ls /tmp/yanbuild 2>&1 | head -2)"
+    ],
+    "additionalDirectories": [
+      "/tmp/yanbuild"
+    ]
+  }
+}

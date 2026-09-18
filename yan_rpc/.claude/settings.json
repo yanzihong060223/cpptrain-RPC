@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(g++ --version)",
+      "Read(//usr/lib/x86_64-linux-gnu/cmake/**)",
+      "Bash(grep -rn \"SPDLOG_VER_MAJOR\\\\|SPDLOG_VER_MINOR\\\\|SPDLOG_VER_PATCH\" /usr/include/spdlog/version.h /usr/local/include/spdlog/version.h 2>/dev/null | head -20)",
+      "Read(//usr/local/include/spdlog/**)"
+    ]
+  }
+}
