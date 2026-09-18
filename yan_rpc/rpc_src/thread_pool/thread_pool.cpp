@@ -121,7 +121,7 @@ void ThreadPool::Resume() {
         task_vari_.notify_all();
     }
 }
-//优雅的退出 超时退化为stop
+//优雅的退出 超时退化为stop//
 bool ThreadPool::ShutDown(std::chrono::milliseconds wait_timeout_ms) {
     auto expected = ThreadPoolState::RUNNING;
 

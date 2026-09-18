@@ -13,7 +13,7 @@ namespace yan_rpc {
 
 class ThreadPoolSingle {
 public:
-    // 第一次初始化的配置生效，之后再次 Init 返回 false。
+    // 第一次初始化的配置生效，之后再次 Init 返回 false//。
     static bool Init(
         size_t thread_size = std::thread::hardware_concurrency()
     );
@@ -31,7 +31,7 @@ public:
             std::chrono::milliseconds::max()
     );
 
-    // 仅在程序退出流程、确认没有其他线程使用线程池时调用。
+    // 仅在程序退出流程、确认没有其他线程使用线程池时调用//
     static void Destroy();
 
     static size_t WorkerSize();

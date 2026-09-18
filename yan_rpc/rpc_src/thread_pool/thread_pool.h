@@ -95,7 +95,7 @@ std::atomic<bool> stop_; //停止标记
 std::atomic<size_t> task_finished_; //完成的任务数量
 std::atomic<size_t> active_threads_; //存活线程数量 
 std::atomic<ThreadPoolState> state_;
-std::priority_queue<Task> tasks_; //任务队列
+std::priority_queue<Task> tasks_; //任务队列//
 }; //核心类线程池
 template<typename F, typename... Args>
 auto ThreadPool::Enquene(TaskPriority priority, F&&f, Args&& ... args) ->std::future<typename std::invoke_result<F, Args...>::type> {
