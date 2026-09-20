@@ -55,6 +55,10 @@ bool Compress::CompressData(const char* src, size_t len, std::vector<char>& des,
     return true;
 }
 bool Compress:: DepressData (const char* src, size_t len, std::vector<char>& des) {
+     if(! src || len == 0) {
+        des.clear();
+        return true;
+     }
      unsigned long long const decompressed_size = ZSTD_getFrameContentSize(src, len);
      if ( decompressed_size ==  ZSTD_CONTENTSIZE_ERROR || decompressed_size == ZSTD_CONTENTSIZE_UNKNOWN) {
         return false;

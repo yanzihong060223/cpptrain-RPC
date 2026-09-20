@@ -9,14 +9,18 @@
 namespace yan_rpc {
   const std::string BASE64_CHARS =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; //标准base64 字符表
-
+ std::atomic<bool> AesEncrypt:: is_inited_{false};
 bool AesEncrypt:: Init(const nlohmann::json& config) {
     try {
     main_key_ = config.value("main_key", "RPC_Secret_Key_2024_Production!@#$%^&*");
+        if (main_key_ == "") {
+            main_key_ = "RPC_Secret_Key_2024_Production!@#$%^&*";
+    }
     } catch(const std::exception& e) {
         LOGGER_ERROR("Encryption Instance Init Error {}", e.what());
         return false;
     }
+    is_inited_.store(true);
     return true;
 }
 std::string AesEncrypt::Base64Encode(std::string& input) const {
@@ -181,7 +185,8 @@ std::string AesEncrypt::Dealgorithm (std::string& input, std::string& key) const
 }
 bool AesEncrypt::Encrypt(std::string& input, std::string& ciptext) {
    try {
-        if (input.size() == 0) {
+        if (input.size() == 0 || !is_inited_.load()) {
+            LOGGER_ERROR("Encryption Failed");
             return false;
         }
        std::string session = GetSession(KEY_LENGTH_);
@@ -210,6 +215,10 @@ bool AesEncrypt::Decrypt(std::string& input, std::string& planexpt) {
         std::string data = Base64Decode(input);
         if (data.size() < KEY_LENGTH_) {
             LOGGER_ERROR ("No Current Size");
+            return false;
+        }
+        if (!is_inited_.load()) {
+            LOGGER_ERROR("No init");
             return false;
         }
         std::string first_data = data.substr(0, KEY_LENGTH_);

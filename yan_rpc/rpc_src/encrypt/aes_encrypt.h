@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <nlohmann/json.hpp>
+#include <atomic>
 namespace yan_rpc {
 class AesEncrypt {
 public:
@@ -28,7 +29,7 @@ std::string Dealgorithm(std::string& input, std::string& key) const ; //解密�
 private:
 static constexpr size_t KEY_LENGTH_ = 32; //会话密钥长度
 std::string main_key_; // 主密钥
-
+static std::atomic<bool> is_inited_;
 
 
 };
