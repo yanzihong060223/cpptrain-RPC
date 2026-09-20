@@ -48,7 +48,7 @@ ThreadPool& ThreadPoolSingle::GetInstance(
 
     return *instance_;
 }
-
+//
 bool ThreadPoolSingle::Pause() {
     ThreadPool* pool = nullptr;
 
