@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/local/include/**)",
+      "Bash(find / -name \"zookeeper.h\" -not -path \"*/proc/*\")",
+      "Read(//home/ubuntu/vcpkg/installed/x64-linux/include/zookeeper/**)",
+      "Read(//home/ubuntu/vcpkg/installed/x64-linux/lib/**)",
+      "Bash(nm -g --defined-only /home/ubuntu/vcpkg/installed/x64-linux/lib/libzookeeper.a)",
+      "Read(//home/ubuntu/vcpkg/installed/x64-linux/share/zookeeper/**)",
+      "Read(//home/ubuntu/vcpkg/installed/x64-linux/**)",
+      "Bash(grep -n \"zookeeper_init\\\\|watcher_fn\\\\|clientid_t\" /home/ubuntu/vcpkg/installed/x64-linux/include/zookeeper/zookeeper.h | head -30)"
+    ]
+  }
+}
