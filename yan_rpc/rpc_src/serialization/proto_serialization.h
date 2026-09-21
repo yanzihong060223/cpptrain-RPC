@@ -38,10 +38,12 @@ bool ProtoSerialization::Deserialization(
     const std::string& buf
 ) {
     try {
-        if (!data.ParseFromString(buf)) {
+        T new_data;
+        if (!new_data.ParseFromString(buf)) {
             LOGGER_ERROR("Deserialization Failed");
             return false;
         }
+        data = new_data;
         return true;
     } catch (const std::exception& e) {
         LOGGER_ERROR("Deserialization Failed {}", e.what());

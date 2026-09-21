@@ -34,7 +34,9 @@ bool JsonSerialization::Deserialization(
     const std::string& buf
 ) {
     try {
-        data = nlohmann::json::parse(buf);
+        nlohmann::json j = nlohmann::json::parse(buf);
+        T new_data = j.get<T>();
+        data = new_data;
         return true;
     } catch (const std::exception& e) {
         LOGGER_ERROR("Json Deserialization Failed {}", e.what());
