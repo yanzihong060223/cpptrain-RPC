@@ -8,6 +8,7 @@
 #include <thread>
 #include <type_traits>
 #include <utility>
+#include <atomic>
 
 namespace yan_rpc {
 
@@ -37,6 +38,7 @@ public:
     static size_t WorkerSize();
     static size_t TaskSize();
     static bool IsInitialized();
+    static ThreadPool::Stat GetStat();
 
     template<typename F, typename... Args>
     static auto Enqueue(TaskPriority priority, F&& f, Args&&... args)
@@ -47,7 +49,6 @@ public:
             std::forward<Args>(args)...
         );
     }
-
 private:
     ThreadPoolSingle() = delete;
     ~ThreadPoolSingle() = delete;
