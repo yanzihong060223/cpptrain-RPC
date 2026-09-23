@@ -159,6 +159,10 @@ bool RpcReponse::Deserialization(std::string& input) {
             LOGGER_ERROR("No Current Magic Number");
             return false;
         }
+        if(head.message_size  != input.size() - pos) {
+            LOGGER_ERROR("No Current Message");
+            return false;
+        }
         sequence_id_ = head.sequence_id;
 
         if (pos + sizeof(uint32_t) > input.size()) {
@@ -172,7 +176,10 @@ bool RpcReponse::Deserialization(std::string& input) {
         }
         result_data_ = input.substr(pos, len);
         pos += len;
-
+        if (pos + sizeof(uint32_t) > input.size()) {
+            LOGGER_ERROR("Can Not Read Error Message");
+            return false;
+        }
         len = ReadUint32(input, pos);
         if (len > input.size() - pos) {
             LOGGER_ERROR("Error Message Too Long Length {}", len);
