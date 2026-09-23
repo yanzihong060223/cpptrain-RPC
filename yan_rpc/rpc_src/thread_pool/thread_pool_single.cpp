@@ -132,4 +132,15 @@ bool ThreadPoolSingle::IsInitialized() {
     return static_cast<bool>(instance_);
 }
 
+ThreadPool::Stat ThreadPoolSingle::GetStat() {
+    ThreadPool* pool = nullptr;
+
+    {
+        std::lock_guard<std::mutex> lock(mtx_);
+        pool = instance_.get();
+    }
+
+    return pool ? pool->GetStat() : ThreadPool::Stat{};
+}
+
 } // namespace yan_rpc

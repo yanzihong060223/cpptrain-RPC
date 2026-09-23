@@ -68,9 +68,9 @@ bool ShutDown( std::chrono::milliseconds wait_timeout_ms =
         std::chrono::milliseconds::max()); //良好退出 等待任务处理
 void Pause(); //暂停
 void Resume(); //恢复线程池
-Stat GetStat() const;//获取信息
 size_t WorkerSize() const;//获取线程池大小
 size_t TasksSize()const; //获取任务大小
+Stat GetStat() const;//获取信息
 void Stop();
 template<typename F, typename... Args>
 //下发任务
