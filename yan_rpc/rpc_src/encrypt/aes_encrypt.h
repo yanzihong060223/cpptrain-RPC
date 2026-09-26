@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 #include <atomic>
 namespace yan_rpc {
+inline nlohmann::json AesEncryptConfig = {{"main_key", "RPC_Secret_Key_2024_Production!@#$%^&*"}};
 class AesEncrypt {
 public:
 static AesEncrypt& GetInstance() {

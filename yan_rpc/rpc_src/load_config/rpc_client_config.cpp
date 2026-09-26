@@ -17,7 +17,7 @@ bool RpcServiceConfig ::Init (const std::string& filename) {
     nlohmann::json j = nlohmann::json::parse(file);
     SetterZkHost(j.value("zk_host", "local_host"));
     SetterZkNameSpace(j.value("zk_namespace", "/yan_rpc"));
-    SetterZkPort(j.value("zk_port", 8080));
+    SetterZkPort(j.value("zk_port", 2181));
     SetterServerPort(j.value("server_port", 8989));
     SetterTimeoutMs(j.value("timeout_ms", 3000));
     SetterRetryTimes(j.value("retry_times", 3));
