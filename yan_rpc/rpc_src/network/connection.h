@@ -49,6 +49,12 @@ public:
     void SetCloseCallback(CloseCallback callback) {
         close_callback_ = std::move(callback);
     }
+    // 取出已读数据并清空读缓冲，避免多次调用时数据累积
+    std::string TakeReadData() {
+        std::string data(read_buffer_.begin(), read_buffer_.end());
+        read_buffer_.clear();
+        return data;
+    }
 
 private:
     void HandleMessage(const RpcRequest& request);

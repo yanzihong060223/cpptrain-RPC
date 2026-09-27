@@ -540,10 +540,14 @@ void MessageCycle::Loop()
         );
 
         if (event_count < 0) {
-            LOGGER_ERROR("kevent error");
+            // 被信号打断不是错误，回到循环条件检查是否需要退出
+            if (errno == EINTR) {
+                continue;
+            }
+            LOGGER_ERROR("kevent error: {}", std::strerror(errno));
             break;
         } else if (event_count == 0) {
-            LOGGER_WARN("Time out");
+            // 空闲超时只是为了定期检查退出标志，不打日志
             continue;
         } else if (
             event_count > 0 &&
@@ -561,10 +565,14 @@ void MessageCycle::Loop()
         );
 
         if (event_count < 0) {
-            LOGGER_ERROR("epoll_wait error");
+            // 被信号打断不是错误，回到循环条件检查是否需要退出
+            if (errno == EINTR) {
+                continue;
+            }
+            LOGGER_ERROR("epoll_wait error: {}", std::strerror(errno));
             break;
         } else if (event_count == 0) {
-            LOGGER_WARN("Time out");
+            // 空闲超时只是为了定期检查退出标志，不打日志
             continue;
         }
 
