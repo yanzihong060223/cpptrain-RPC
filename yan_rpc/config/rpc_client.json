@@ -1,0 +1,8 @@
+{
+    "zk_host": "127.0.0.1",
+    "zk_port": 2181,
+    "zk_namespace": "/yanrpc/UserService",
+    "server_port": 8989,
+    "timeout_ms": 13000,
+    "retry_times": 3
+}

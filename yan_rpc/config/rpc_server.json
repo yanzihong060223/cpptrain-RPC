@@ -1,0 +1,24 @@
+{
+    "service_ip": "0.0.0.0",
+    "service_port": 8989,
+    "retry_time": 3,
+    "timeout_ms": 3000,
+    "max_service_connections": 1000,
+    "load_balance_strategy": "random",
+    "logger": {
+        "path": "../log",
+        "level": "info"
+    },
+    "thread_pool": {
+        "core_threads": 4,
+        "max_core_threads": 8,
+        "max_queue_size": 1000,
+        "alive_time": 8000
+    },
+    "register_config": "../config/service_register.json",
+    "scheduler": {
+        "host": "127.0.0.1",
+        "port": 2181,
+        "zoo_namespace": "/yanrpc"
+    }
+}

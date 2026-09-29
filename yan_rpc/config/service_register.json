@@ -1,0 +1,10 @@
+{
+    "service_name": "UserService",
+    "service_version": "1.0.0",
+    "register_nodes": [
+        {
+            "address": "127.0.0.1",
+            "port": 8989
+        }
+    ]
+}
