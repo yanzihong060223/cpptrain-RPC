@@ -2,7 +2,9 @@
 #include <string>
 #include <nlohmann/json.hpp>
 #include <atomic>
+#include <mutex>
 namespace yan_rpc {
+inline nlohmann::json AesEncryptConfig = {{"main_key", "RPC_Secret_Key_2024_Production!@#$%^&*"}};
 class AesEncrypt {
 public:
 static AesEncrypt& GetInstance() {
@@ -30,6 +32,7 @@ private:
 static constexpr size_t KEY_LENGTH_ = 32; //会话密钥长度
 std::string main_key_; // 主密钥
 static std::atomic<bool> is_inited_;
+std::once_flag init_flag_; // 保证 main_key_ 只写一次
 
 
 };

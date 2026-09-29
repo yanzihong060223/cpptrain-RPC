@@ -11,16 +11,21 @@ namespace yan_rpc {
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; //标准base64 字符表
  std::atomic<bool> AesEncrypt:: is_inited_{false};
 bool AesEncrypt:: Init(const nlohmann::json& config) {
+    // 每次加解密前都会调 Init，main_key_ 只能写一次，否则多线程并发写同一个 string 会 double-free
+    // lambda 抛异常时 call_once 不会标记完成，下次调用会重试
     try {
-    main_key_ = config.value("main_key", "RPC_Secret_Key_2024_Production!@#$%^&*");
-        if (main_key_ == "") {
-            main_key_ = "RPC_Secret_Key_2024_Production!@#$%^&*";
-    }
+        std::call_once(init_flag_, [this, &config]() {
+            std::string key = config.value("main_key", "RPC_Secret_Key_2024_Production!@#$%^&*");
+            if (key.empty()) {
+                key = "RPC_Secret_Key_2024_Production!@#$%^&*";
+            }
+            main_key_ = std::move(key);
+            is_inited_.store(true);
+        });
     } catch(const std::exception& e) {
         LOGGER_ERROR("Encryption Instance Init Error {}", e.what());
         return false;
     }
-    is_inited_.store(true);
     return true;
 }
 std::string AesEncrypt::Base64Encode(std::string& input) const {

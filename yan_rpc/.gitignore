@@ -1,0 +1,11 @@
+# 构建产物
+build/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# 运行日志
+log/
